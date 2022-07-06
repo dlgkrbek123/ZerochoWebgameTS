@@ -1,0 +1,73 @@
+---------------------------------------------------------------------------
+
+inteface
+- 객체의 틀을 잡기 위해 쓴다.
+
+interface RSP {
+  ROCK: string;
+  readonly SCISSORS: '-142px';
+  readonly PAPER: '-284px';
+  [key: string]: number; // 익명의 문자열 키에는 숫자만 할당가능
+}
+
+
+- 동명으로 여러번 정의가 가능하며, 정의시마다 합쳐진다.
+
+interface RSP {
+  ROCK: string;
+}
+
+interface RSP {
+  readonly SCISSORS: '-142px';
+  readonly PAPER: '-284px';
+}
+
+
+- 상속이 가능하다.
+
+interface Example extneds RSP {
+}
+
+
+- 인터페이스에 keyof 키워드를 사용하여 키만을 타입으로 지정가능하다.
+
+function computerChoice(imgCoords: RSP[keyof RSP]) {
+  const keys = Object.keys(rsp) as [keyof RSP];
+  return keys.find((k) => rsp[k] === imgCoords);
+}
+
+---------------------------------------------------------------------------
+
+type alias
+- 커스텀 타입 생성을 위해 사용
+- 인터페이스와 비슷하나 객체이외의 더 넓은 범위 커버
+- 인터페이스와 다르게 동명으로 여러번 정의시 에러남
+
+type TProps = {
+  ROCK: string;
+  readonly SCISSORS: '-142px';
+  readonly PAPER: '-284px';
+}
+
+---------------------------------------------------------------------------
+
+this 타이핑
+
+- function 키워드로 함수 정의시 첫번째 인자로 this 타이핑을 전달해야 함
+
+  btn.addEventListener('click', function (this: HTMLButtonElement, e: Event) {
+
+---------------------------------------------------------------------------
+
+- !를 붙혀서 프로그래머가 값이 있음을 보증 
+
+ return keys.find((k) => rsp[k] === imgCoords)!;
+
+
+- if문으로 항상 있을때 실행되게 하면 넘어갈 수 있다.
+
+if (computerDOM) {
+  computerDOM.style.background = `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoords} 0`;
+}
+
+---------------------------------------------------------------------------
