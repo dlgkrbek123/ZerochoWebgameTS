@@ -1,0 +1,88 @@
+---------------------------------------------------------------------------
+
+접근 제한자
+
+- public     : 미기입시 적용되는 기본값, 어디서든 접근가능
+- protected  : 현재클래스및 상속받은 클래스에서만 접근가능
+- private    : 현재클래스에서만 접근가능
+
+class Card {
+  public att: number; // 어디서든 접근가능
+  protected hp: number; // 상속받은 곳에서는 접근가능
+  private cost: number; // 해당 클래스에서만 접근가능
+
+  constructor(hero: boolean, mine: boolean) {
+    ...
+  }
+}
+
+---------------------------------------------------------------------------
+
+- implements 키워드를 통해 클래스의 타이핑을 지정한다.
+
+interface ICard {
+  att: number;
+  hp: number;
+  cost?: number;
+  mine: boolean;
+  field?: boolean;
+}
+
+class Card implements ICard {
+}
+
+---------------------------------------------------------------------------
+
+제네릭
+- <>를 활용한 타입 짝 맞추기
+- 유연하게 선언하여 사용할 떄 타입을 지정
+- 사용시 제네릭에 타입을 명시하지 않아도 추론을 제공!!
+
+// 함수를 중복선언하거나 |로 불확실하게 처리....
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+function add(a: string, b: string): string {
+  return a + b;
+}
+
+
+// 함수 add를 제네릭을 활용해 타입에 따라 맞춤선언
+
+interface obj<T> {
+  add: (a: T, b: T): T;
+}
+const a: obj<number> = {
+  add: (a, b) => a + b
+}
+const b: obj<string> = {
+  add: (a, b) => a + b
+}
+
+
+// forEach 예제
+
+function forEach<T>(arr: T[],  callback: (item: T) => void): void {
+  for(let i: number =0; i < arr.length; i++) {
+    callback(arr[i]);
+  }
+}
+
+forEach<string>(['a', 'b', 'c'], (item) => {
+  console.log(item);
+})
+
+---------------------------------------------------------------------------
+
+타입 가드
+- 타입을 좁히기 위한 방법
+- if와 typeof, instanceof를 활용하여 타입을 좁혀나간다.
+
+// 커스텀 타입가드
+function isSub(data: ICard): data is Sub {
+  return !!data.cost;
+}
+
+---------------------------------------------------------------------------

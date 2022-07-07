@@ -11,6 +11,24 @@ interface RSP {
 }
 
 
+- 함수선언에도 활용가능하다.
+- 클래스도 선언가능하긴 한데.. 잘 안쓴다.
+
+interface Example {
+  (a: number, b: number): number
+}
+const ex: Example = (a, b) => a + b
+
+interface A {
+  data: Card;
+  DOM: HTMLDivElement;
+  hero?: boolean;
+}
+function connectCardDOM({ data, DOM, hero = false}: A) {}
+
+
+
+
 - 동명으로 여러번 정의가 가능하며, 정의시마다 합쳐진다.
 
 interface RSP {
